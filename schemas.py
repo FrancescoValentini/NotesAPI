@@ -1,0 +1,49 @@
+
+from typing import Generic, TypeVar
+
+from pydantic import BaseModel, ConfigDict, Field
+
+
+# Generic API response
+T = TypeVar("T")
+
+
+class APIResponse(BaseModel, Generic[T]):
+    error: bool = False
+    result: T | None = None
+    message: str | None = None
+
+
+# Authentication
+class UserRegister(BaseModel):
+    username: str = Field(min_length=3, max_length=50)
+    password: str = Field(min_length=8)
+
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+# Notes
+class NoteCreate(BaseModel):
+    title: str = Field(min_length=1, max_length=150)
+    content: str = ""
+
+
+class NoteUpdate(BaseModel):
+    title: str | None = Field(default=None, max_length=150)
+    content: str | None = None
+
+
+class NoteResponse(BaseModel):
+    id: int
+    title: str
+    content: str
+
+    model_config = ConfigDict(from_attributes=True)
