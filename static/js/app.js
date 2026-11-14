@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8000/api/v1";
+const API_URL = `${window.location.origin}/api/v1`;
 
 let token = localStorage.getItem("access_token");
 let username = localStorage.getItem("username");
