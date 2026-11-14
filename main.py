@@ -58,3 +58,11 @@ def health_check():
         "message": "Application is running"
     }
 
+frontend_dir = Path(__file__).parent / "static"
+
+app.mount(
+    "/webui",
+    StaticFiles(directory=frontend_dir, html=True),
+    name="frontend"
+)
+
