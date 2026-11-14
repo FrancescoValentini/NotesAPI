@@ -7,10 +7,11 @@ import jwt
 
 from datetime import datetime, timedelta, timezone
 from pwdlib import PasswordHash
+from core.config import settings
 
 password_hash = PasswordHash.recommended()
 
-SECRET_KEY = os.environ["JWT_SECRET_KEY"]
+SECRET_KEY = settings.JWT_SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

@@ -1,6 +1,6 @@
+import uuid
 
 from typing import Generic, TypeVar
-
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -25,6 +25,13 @@ class UserLogin(BaseModel):
     password: str
 
 
+class UserResponse(BaseModel):
+    id: uuid.UUID
+    username: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
@@ -32,17 +39,17 @@ class TokenResponse(BaseModel):
 
 # Notes
 class NoteCreate(BaseModel):
-    title: str = Field(min_length=1, max_length=150)
+    title: str = Field(min_length=1, max_length=255)
     content: str = ""
 
 
 class NoteUpdate(BaseModel):
-    title: str | None = Field(default=None, max_length=150)
+    title: str | None = Field(default=None, max_length=255)
     content: str | None = None
 
 
 class NoteResponse(BaseModel):
-    id: int
+    id: uuid.UUID
     title: str
     content: str
 
