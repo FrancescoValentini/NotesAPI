@@ -87,7 +87,24 @@ git clone https://github.com/FrancescoValentini/NotesAPI
 cd NotesAPI
 ```
 
-### 2. Run the application
+### 2. Configure environment variables
+
+Create a `.env` file in the project root directory with the following content:
+
+```env
+JWT_SECRET_KEY=long-secret-key
+DATABASE_URL=sqlite:///./notes_database.db
+```
+
+> [!WARNING]
+> **Note:** The `JWT_SECRET_KEY` above is an example. Generate your own secure secret key before using the application:
+> ```bash
+> python -c "import secrets; print(secrets.token_urlsafe(32))"
+> ```
+
+Replace the example key in your `.env` file with the generated value.
+
+### 3. Run the application
 
 **Linux / macOS**
 
@@ -136,24 +153,15 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-### 3. Configure environment variables
+**Docker**
 
-Create a `.env` file in the project root directory with the following content:
+```bash
+# Build the container image
+docker compose build
 
-```env
-JWT_SECRET_KEY=long-secret-key
-DATABASE_URL=sqlite:///./notes_database.db
+# Run the container
+docker compose up
 ```
-
-> [!WARNING]
-> **Note:** The `JWT_SECRET_KEY` above is an example. Generate your own secure secret key before using the application:
-> ```bash
-> python -c "import secrets; print(secrets.token_urlsafe(32))"
-> ```
-
-
-
-Replace the example key in your `.env` file with the generated value.
 
 ### 4. Access the application
 
