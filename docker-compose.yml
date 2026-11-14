@@ -1,0 +1,29 @@
+
+services:
+  notes-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: notes-api
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - .env
+
+    environment:
+      DATABASE_URL: sqlite:////app/data/notes_database.db
+
+    volumes:
+      - notes_data:/app/data
+
+    restart: unless-stopped
+
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  notes_data:
+    driver: local
